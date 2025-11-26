@@ -1,0 +1,7 @@
+Pillow
+blobfile>=1.0.5
+lmdb
+numpy
+six
+torch
+tqdm

@@ -1,0 +1,7 @@
+{
+    "sr_accuracy": 0.24,
+    "lr_accuracy": 0.32,
+    "hr_accuracy": 0.08,
+    "ssim": 0.433879,
+    "psnr": 6.64611
+}

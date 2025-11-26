@@ -1,0 +1,23 @@
+{
+    "easy_gt_dimss": {
+        "sr_accuray": 58.25,
+        "lr_accuray": 37.99,
+        "hr_accuray": 76.53,
+        "ssim": 0.870485,
+        "psnr": 23.468757
+    },
+    "medium_gt_dimss": {
+        "sr_accuray": 41.25,
+        "lr_accuray": 21.69,
+        "hr_accuray": 74.77000000000001,
+        "ssim": 0.640113,
+        "psnr": 19.130164
+    },
+    "hard_gt_dimss": {
+        "sr_accuray": 33.879999999999995,
+        "lr_accuray": 21.37,
+        "hr_accuray": 64.78,
+        "ssim": 0.717864,
+        "psnr": 20.213646
+    }
+}
