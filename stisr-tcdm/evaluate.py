@@ -200,33 +200,59 @@ if __name__ == '__main__':
     data_dir = os.path.join(dataset_root, 'easy')
     results = main(data_dir, samples_dir)
 
-    #Added
+    # Added
     splits = ['easy', 'medium', 'hard']
     sr_variants = ['gt_dimss']  # change/add your SR variants here
 
     results_all = {}
+    overall_sums = {
+        'sr_accuray': 0.0,
+        'lr_accuray': 0.0,
+        'hr_accuray': 0.0,
+        'ssim': 0.0,
+        'psnr': 0.0,
+        'count': 0
+    }
 
     for split in splits:
         data_dir = os.path.join(dataset_root, split)
-        
+
         for variant in sr_variants:
             filename = f"{split}_sr_samples_{variant}.npz"
             samples_dir = os.path.join(samples_root, filename)
-            
+
             print(f"\nEvaluating {variant} SR on {split} split...")
             metrics = main(data_dir, samples_dir)
-            
+
             # store results
-            results_all[f"{split}_{variant}"] = metrics
+            key = f"{split}_{variant}"
+            results_all[key] = metrics
+
+            # accumulate for averaging
+            overall_sums['sr_accuray'] += metrics['sr_accuray']
+            overall_sums['lr_accuray'] += metrics['lr_accuray']
+            overall_sums['hr_accuray'] += metrics['hr_accuray']
+            overall_sums['ssim'] += metrics['ssim']
+            overall_sums['psnr'] += metrics['psnr']
+            overall_sums['count'] += 1
 
     print("\n===== Summary of all evaluations =====")
     for key, value in results_all.items():
         print(f"{key}: {value}")
 
+    # ===== Compute final average over all subsets =====
+    avg_results = {
+        'avg_sr_accuracy': overall_sums['sr_accuray'] / overall_sums['count'],
+        'avg_ssim': overall_sums['ssim'] / overall_sums['count'],
+        'avg_psnr': overall_sums['psnr'] / overall_sums['count']
+    }
+
+    print("\n===== Average results over all splits =====")
+    for k, v in avg_results.items():
+        print(f"{k}: {v}")
+
     # Save results to JSON
+    results_all["averages"] = avg_results
     with open('evaluation_results.json', 'w') as f:
         json.dump(results_all, f, indent=4)
-
-
-
 
