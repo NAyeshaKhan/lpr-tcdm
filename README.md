@@ -98,6 +98,7 @@ Videos of running the super-resolver and evaluating the results on the TextZoom 
 
 If you are running the file on Windows, change the following line in the get_test_data_with_sr function in evaluate.py with this:
 #Old: shuffle=False, num_workers=8,
+
 #Corrected for Windows: shuffle=False, num_workers=0,
 
 You do not need to make this change for Linux/ Mac OS.
